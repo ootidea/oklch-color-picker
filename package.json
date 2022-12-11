@@ -2,17 +2,18 @@
   "name": "oklch-color-picker",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "homepage": "https://github.com/ootidea/oklch-color-picker#readme",
+  "bugs": {
+    "url": "https://github.com/ootidea/oklch-color-picker/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ootidea/oklch-color-picker.git"
   },
-  "bugs": {
-    "url": "https://github.com/ootidea/oklch-color-picker/issues"
+  "scripts": {
+    "format:package-json": "sort-package-json",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/ootidea/oklch-color-picker#readme",
   "devDependencies": {
     "sort-package-json": "^2.1.0"
   }
