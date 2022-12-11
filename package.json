@@ -11,7 +11,9 @@
     "url": "git+https://github.com/ootidea/oklch-color-picker.git"
   },
   "scripts": {
+    "format": "run-p format:*",
     "format:package-json": "sort-package-json",
+    "format:prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss}\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
