@@ -11,14 +11,15 @@
     "url": "git+https://github.com/ootidea/oklch-color-picker.git"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "dev": "vite",
     "format": "run-p format:*",
     "format:package-json": "sort-package-json",
     "format:prettier": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss}\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@tsconfig/strictest": "^1.0.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.1",
     "solid-js": "^1.6.4",
