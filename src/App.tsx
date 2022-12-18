@@ -79,6 +79,7 @@ export function App() {
   return (
     <main style={{ display: 'flex', 'justify-content': 'center' }}>
       <div>
+        <h1>OKLCH color picker</h1>
         <div
           style={{
             display: 'inline-block',
@@ -112,12 +113,14 @@ export function App() {
           Border
         </div>
 
-        <div>{color().toString()}</div>
-        <div>{color().to('hsl').toString()}</div>
-        <div>{color().to('srgb').toString()}</div>
-        <div>{color().to('lch').toString()}</div>
-        <div>{color().to('oklab').toString()}</div>
-        <div>{color().to('lab').toString()}</div>
+        <div style={{ display: 'grid', 'grid-template-columns': 'auto', gap: '0.3em' }}>
+          <code class={classes.cssColorText}>{color().toString()}</code>
+          <code class={classes.cssColorText}>{color().to('hsl').toString()}</code>
+          <code class={classes.cssColorText}>{color().to('srgb').toString()}</code>
+          <code class={classes.cssColorText}>{color().to('oklab').toString()}</code>
+          <code class={classes.cssColorText}>{color().to('lch').toString()}</code>
+          <code class={classes.cssColorText}>{color().to('lab').toString()}</code>
+        </div>
 
         <div
           style={{
