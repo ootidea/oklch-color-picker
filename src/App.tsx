@@ -6,16 +6,20 @@ import classes from './App.module.scss'
 /** calculateMaxChromaInGamut関数の戻り値をメモ化するためのオブジェクト */
 const maxChromaMemo: Record<string, number> = {}
 
-/** srgbの色域に収まる最大のchroma値を二分探索する */
+/** sRGBの色域に収まる最大のchroma値を二分探索する */
 function calculateMaxChromaInGamut(lightness: number, hue: number, delta: number = 0.001): number {
   const memoKey = `${lightness},${hue}`
   const cachedValue = maxChromaMemo[memoKey]
   if (cachedValue !== undefined) return cachedValue
 
-  // 浮動小数点数上の二分探索を行う。探索範囲の下限と上限が十分に近づいたら探索を打ち切る
+  // 二分探索の探索範囲の下限
   let lowerBound = 0
-  // 今までに確認できた最大値は0.3211
-  let upperBound = 0.4
+  // 二分探索の探索範囲の上限。
+  // sRGBでの最大値は0.321台であり、0.322以下だと分かっている。
+  // このことは次のウェブページでも確認できる。
+  // https://oklch.evilmartians.io/#69.9,0.321,328.24,100
+  let upperBound = 0.322
+  // 浮動小数点数上の二分探索を行う。探索範囲の下限と上限が十分に近づいたら探索を打ち切る
   while (upperBound - lowerBound > delta) {
     const chroma = lowerBound + (upperBound - lowerBound) / 2
     if (new Color('oklch', [lightness, chroma, hue], 1).inGamut('srgb')) {
