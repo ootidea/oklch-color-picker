@@ -1,6 +1,6 @@
 import { rangeTo } from 'base-up'
 import Color from 'colorjs.io'
-import { createMemo, createSignal, Setter } from 'solid-js'
+import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
 
 /** calculateMaxChromaInGamut関数の戻り値をメモ化するためのオブジェクト */
@@ -84,7 +84,7 @@ export function App() {
   const [lightness, setLightness] = createLightnessSignal()
   const color = createMemo(() => createColorByChromaRatio(lightness(), chromaRatio(), hue()))
 
-  const onInput = (setter: Setter<number>) => (event: InputEvent) => {
+  const onInput = (setter: (value: number) => void) => (event: InputEvent) => {
     if (event.target instanceof HTMLInputElement) {
       const newValue = event.target.value
       setter(Number(newValue))
@@ -92,7 +92,7 @@ export function App() {
   }
 
   const onMouseDown =
-    (setter: Setter<number>, maxValue: number = 1) =>
+    (setter: (value: number) => void, maxValue: number = 1) =>
     (event: MouseEvent) => {
       if (event.currentTarget instanceof HTMLElement) {
         const mouseX = event.clientX
@@ -103,7 +103,7 @@ export function App() {
     }
 
   const onMouseMove =
-    (setter: Setter<number>, maxValue: number = 1) =>
+    (setter: (value: number) => void, maxValue: number = 1) =>
     (event: MouseEvent) => {
       // if left-mouse-button is not pressed
       if ((event.buttons & 1) === 0) return
