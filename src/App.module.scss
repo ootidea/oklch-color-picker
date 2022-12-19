@@ -1,9 +1,32 @@
+:root {
+  --previewPaddingInline: 0.5em;
+  --previewPaddingBlock: 0.8em;
+}
+
 .sliderTrack {
   height: 25px;
   width: max-content;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1px;
+}
+
+.previewWhiteText {
+  padding: var(--previewPaddingInline) var(--previewPaddingBlock);
+  background: var(--currentColor);
+  color: white;
+}
+
+.previewBlackText {
+  padding: var(--previewPaddingInline) var(--previewPaddingBlock);
+  background: var(--currentColor);
+  color: black;
+}
+
+.previewBorder {
+  padding: calc(var(--previewPaddingInline) - 1px) calc(var(--previewPaddingBlock) - 1px);
+  border: 1px solid var(--currentColor);
+  color: var(--currentColor);
 }
 
 .cssColorText {

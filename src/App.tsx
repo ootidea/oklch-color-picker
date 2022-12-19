@@ -108,40 +108,13 @@ export function App() {
     }
 
   return (
-    <main style={{ display: 'flex', 'justify-content': 'center' }}>
+    <main style={{ display: 'flex', 'justify-content': 'center', '--currentColor': color().to('hsl').toString() }}>
       <div>
         <h1>Oklch color picker</h1>
-        <div
-          style={{
-            display: 'inline-block',
-            padding: '0.5em 0.8em',
-            background: color().to('hsl').toString(),
-            color: 'black',
-          }}
-        >
-          Black
-        </div>
-
-        <div
-          style={{
-            display: 'inline-block',
-            padding: '0.5em 0.8em',
-            background: color().to('hsl').toString(),
-            color: 'white',
-          }}
-        >
-          White
-        </div>
-
-        <div
-          style={{
-            display: 'inline-block',
-            padding: 'calc(0.5em - 1px) calc(0.8em - 1px)',
-            border: `1px solid ${color().to('hsl').toString()}`,
-            color: color().to('hsl').toString(),
-          }}
-        >
-          Border
+        <div style={{ width: 'max-content', display: 'grid', 'grid-template-columns': 'auto auto auto', gap: '1em' }}>
+          <div class={classes.previewBlackText}>Black</div>
+          <div class={classes.previewWhiteText}>White</div>
+          <div class={classes.previewBorder}>Border</div>
         </div>
 
         <div style={{ display: 'grid', 'grid-template-columns': 'auto', gap: '0.3em' }}>
