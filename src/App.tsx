@@ -40,12 +40,48 @@ function toHsl(lightness: number, chromaRatio: number, hue: number): string {
   return createColorByChromaRatio(lightness, chromaRatio, hue).to('hsl').toString()
 }
 
+/** 小数第n位で四捨五入する */
+function roundAt(value: number, nthDecimalPlace: number): number {
+  const factor = Math.pow(10, nthDecimalPlace - 1)
+  return Math.round(value * factor) / factor
+}
+
+function createHueSignal() {
+  const [hue, setHue] = createSignal(120)
+  return [
+    hue,
+    (newHue: number) => {
+      setHue(roundAt(newHue, 1))
+    },
+  ] as const
+}
+
+function createChromaRatioSignal() {
+  const [chromaRatio, setChromaRatio] = createSignal(0.5)
+  return [
+    chromaRatio,
+    (newChromaRatio: number) => {
+      setChromaRatio(roundAt(newChromaRatio, 3))
+    },
+  ] as const
+}
+
+function createLightnessSignal() {
+  const [Lightness, setLightness] = createSignal(0.8)
+  return [
+    Lightness,
+    (newLightness: number) => {
+      setLightness(roundAt(newLightness, 3))
+    },
+  ] as const
+}
+
 export function App() {
   const SLIDER_SIZE_PX = 300
 
-  const [hue, setHue] = createSignal(120)
-  const [chromaRatio, setChromaRatio] = createSignal(0.5)
-  const [lightness, setLightness] = createSignal(0.8)
+  const [hue, setHue] = createHueSignal()
+  const [chromaRatio, setChromaRatio] = createChromaRatioSignal()
+  const [lightness, setLightness] = createLightnessSignal()
   const color = createMemo(() => createColorByChromaRatio(lightness(), chromaRatio(), hue()))
 
   const onInput = (setter: Setter<number>) => (event: InputEvent) => {
