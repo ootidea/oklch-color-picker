@@ -1,4 +1,4 @@
-import { rangeTo } from 'base-up'
+import { mod, rangeTo } from 'base-up'
 import Color from 'colorjs.io'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
@@ -48,21 +48,14 @@ function roundAt(value: number, nthDecimalPlace: number): number {
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(120)
-  return [
-    hue,
-    (newHue: number) => {
-      setHue(roundAt(newHue, 1))
-    },
-  ] as const
+  return [hue, (newHue: number) => setHue(roundAt(mod(newHue, 360), 1))] as const
 }
 
 function createChromaRatioSignal() {
   const [chromaRatio, setChromaRatio] = createSignal(0.5)
   return [
     chromaRatio,
-    (newChromaRatio: number) => {
-      setChromaRatio(roundAt(newChromaRatio, 3))
-    },
+    (newChromaRatio: number) => setChromaRatio(roundAt(Math.max(0, Math.min(1, newChromaRatio)), 3)),
   ] as const
 }
 
@@ -70,9 +63,7 @@ function createLightnessSignal() {
   const [Lightness, setLightness] = createSignal(0.8)
   return [
     Lightness,
-    (newLightness: number) => {
-      setLightness(roundAt(newLightness, 3))
-    },
+    (newLightness: number) => setLightness(roundAt(Math.max(0, Math.min(1, newLightness)), 3)),
   ] as const
 }
 
