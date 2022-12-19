@@ -177,8 +177,8 @@ export function App() {
           onMouseDown={onMouseDown(setLightness)}
           onMouseMove={onMouseMove(setLightness)}
         >
-          {rangeTo(SLIDER_SIZE_PX).map((index) => (
-            <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }}></div>
+          {rangeTo(SLIDER_SIZE_PX as number).map((index) => (
+            <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
           ))}
         </div>
 
@@ -187,14 +187,18 @@ export function App() {
           onMouseDown={onMouseDown(setChromaRatio)}
           onMouseMove={onMouseMove(setChromaRatio)}
         >
-          {rangeTo(SLIDER_SIZE_PX).map((index) => (
-            <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }}></div>
+          {rangeTo(SLIDER_SIZE_PX as number).map((index) => (
+            <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
           ))}
         </div>
 
         <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)} onMouseMove={onMouseMove(setHue, 360)}>
-          {rangeTo(SLIDER_SIZE_PX).map((index) => (
-            <div style={{ background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)) }}></div>
+          {rangeTo(SLIDER_SIZE_PX as number).map((index) => (
+            <div
+              style={{
+                background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
+              }}
+            />
           ))}
         </div>
       </div>
