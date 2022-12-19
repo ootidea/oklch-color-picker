@@ -110,7 +110,7 @@ export function App() {
   return (
     <main style={{ display: 'flex', 'justify-content': 'center' }}>
       <div>
-        <h1>OKLCH color picker</h1>
+        <h1>Oklch color picker</h1>
         <div
           style={{
             display: 'inline-block',
