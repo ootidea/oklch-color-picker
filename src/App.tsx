@@ -77,7 +77,7 @@ function createLightnessSignal() {
 }
 
 export function App() {
-  const SLIDER_SIZE_PX = 300
+  const SLIDER_SIZE_PX = 361
 
   const [hue, setHue] = createHueSignal()
   const [chromaRatio, setChromaRatio] = createChromaRatioSignal()
