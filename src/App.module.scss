@@ -1,5 +1,6 @@
 .sliderTrack {
   height: 25px;
+  width: max-content;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1px;
