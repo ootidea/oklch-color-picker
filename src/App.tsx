@@ -60,7 +60,7 @@ export function App() {
     (event: MouseEvent) => {
       if (event.currentTarget instanceof HTMLElement) {
         const mouseX = event.clientX
-        const elementX = event.currentTarget.getBoundingClientRect().x
+        const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
         const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
         setter(maxValue * ratio)
       }
