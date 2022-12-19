@@ -84,6 +84,7 @@ export function App() {
   const onMouseDown =
     (setter: (value: number) => void, maxValue: number = 1) =>
     (event: MouseEvent) => {
+      event.preventDefault()
       if (event.currentTarget instanceof HTMLElement) {
         const mouseX = event.clientX
         const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
