@@ -2,14 +2,6 @@
   "name": "oklch-color-picker",
   "private": true,
   "type": "module",
-  "homepage": "https://github.com/ootidea/oklch-color-picker#readme",
-  "bugs": {
-    "url": "https://github.com/ootidea/oklch-color-picker/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ootidea/oklch-color-picker.git"
-  },
   "scripts": {
     "build": "tsc --noEmit && vite build",
     "dev": "vite",
