@@ -1,4 +1,4 @@
-import { mod, rangeTo } from 'base-up'
+import { modOf, rangeTo } from 'base-up'
 import Color from 'colorjs.io'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
@@ -47,7 +47,7 @@ function roundAt(value: number, nthDecimalPlace: number): number {
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(120)
-  return [hue, (newHue: number) => setHue(roundAt(mod(newHue, 360), 1))] as const
+  return [hue, (newHue: number) => setHue(roundAt(modOf(newHue, 360), 1))] as const
 }
 
 function createChromaRatioSignal() {
