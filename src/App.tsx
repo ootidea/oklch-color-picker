@@ -1,4 +1,4 @@
-import { modOf, rangeTo } from 'base-up'
+import { clamp, modOf, rangeTo } from 'base-up'
 import Color from 'colorjs.io'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
@@ -52,18 +52,12 @@ function createHueSignal() {
 
 function createChromaRatioSignal() {
   const [chromaRatio, setChromaRatio] = createSignal(0.5)
-  return [
-    chromaRatio,
-    (newChromaRatio: number) => setChromaRatio(roundAt(Math.max(0, Math.min(1, newChromaRatio)), 3)),
-  ] as const
+  return [chromaRatio, (newChromaRatio: number) => setChromaRatio(roundAt(clamp(0, newChromaRatio, 1), 3))] as const
 }
 
 function createLightnessSignal() {
   const [Lightness, setLightness] = createSignal(0.8)
-  return [
-    Lightness,
-    (newLightness: number) => setLightness(roundAt(Math.max(0, Math.min(1, newLightness)), 3)),
-  ] as const
+  return [Lightness, (newLightness: number) => setLightness(roundAt(clamp(0, newLightness, 1), 3))] as const
 }
 
 export function App() {
