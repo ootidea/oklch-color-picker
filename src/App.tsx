@@ -1,4 +1,4 @@
-import { clamp, modOf, rangeUntil } from 'base-up'
+import { clamp, modOf, rangeUntil, roundAt } from 'base-up'
 import Color from 'colorjs.io'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
@@ -37,12 +37,6 @@ function createColorByChromaRatio(lightness: number, chromaRatio: number, hue: n
 
 function toHsl(lightness: number, chromaRatio: number, hue: number): string {
   return createColorByChromaRatio(lightness, chromaRatio, hue).to('hsl').toString()
-}
-
-/** 小数第n位で四捨五入する */
-function roundAt(value: number, nthDecimalPlace: number): number {
-  const factor = Math.pow(10, nthDecimalPlace - 1)
-  return Math.round(value * factor) / factor
 }
 
 function createHueSignal() {
