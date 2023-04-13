@@ -1,4 +1,4 @@
-import { clamp, modOf, rangeUntil, roundAt } from 'base-up'
+import { clamp, isInstanceOf, modOf, rangeUntil, roundAt } from 'base-up'
 import Color from 'colorjs.io'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
@@ -63,22 +63,23 @@ export function App() {
   const color = createMemo(() => createColorByChromaRatio(lightness(), chromaRatio(), hue()))
 
   const onInput = (setter: (value: number) => void) => (event: InputEvent) => {
-    if (event.target instanceof HTMLInputElement) {
-      const newValue = event.target.value
-      setter(Number(newValue))
-    }
+    if (!isInstanceOf(event.target, HTMLInputElement)) return
+
+    const newValue = event.target.value
+    setter(Number(newValue))
   }
 
   const onMouseDown =
     (setter: (value: number) => void, maxValue: number = 1) =>
     (event: MouseEvent) => {
       event.preventDefault()
-      if (event.currentTarget instanceof HTMLElement) {
-        const mouseX = event.clientX
-        const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
-        const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
-        setter(maxValue * ratio)
-      }
+
+      if (!isInstanceOf(event.currentTarget, HTMLElement)) return
+
+      const mouseX = event.clientX
+      const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
+      const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
+      setter(maxValue * ratio)
     }
 
   const onMouseMove =
@@ -87,12 +88,12 @@ export function App() {
       // if left-mouse-button is not pressed
       if ((event.buttons & 1) === 0) return
 
-      if (event.currentTarget instanceof HTMLElement) {
-        const mouseX = event.clientX
-        const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
-        const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
-        setter(maxValue * ratio)
-      }
+      if (!isInstanceOf(event.currentTarget, HTMLElement)) return
+
+      const mouseX = event.clientX
+      const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
+      const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
+      setter(maxValue * ratio)
     }
 
   return (
