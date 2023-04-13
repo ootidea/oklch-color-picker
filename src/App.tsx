@@ -100,74 +100,87 @@ export function App() {
     <main style={{ display: 'flex', 'justify-content': 'center', '--currentColor': color().to('hsl').toString() }}>
       <div>
         <h1>Oklch color picker</h1>
-        <div style={{ width: 'max-content', display: 'grid', 'grid-template-columns': 'auto auto auto', gap: '1em' }}>
-          <div class={classes.previewBlackText}>Black</div>
-          <div class={classes.previewWhiteText}>White</div>
-          <div class={classes.previewBorder}>Border</div>
-        </div>
 
-        <div style={{ display: 'grid', 'grid-template-columns': 'auto', gap: '0.6em' }}>
-          <code class={classes.cssColorText}>{color().toString()}</code>
-          <code class={classes.cssColorText}>{color().to('hsl').toString()}</code>
-          <code class={classes.cssColorText}>{color().to('srgb').toString()}</code>
-          <code class={classes.cssColorText}>{color().to('srgb').toString({ format: 'hex' })}</code>
-          <code class={classes.cssColorText}>{color().to('oklab').toString()}</code>
-          <code class={classes.cssColorText}>{color().to('lch').toString()}</code>
-          <code class={classes.cssColorText}>{color().to('lab').toString()}</code>
-        </div>
+        <fieldset>
+          <legend>Preview</legend>
 
-        <div
-          style={{
-            width: 'max-content',
-            display: 'grid',
-            'grid-template-columns': 'auto 5em',
-            gap: '1em',
-            padding: '1em',
-          }}
-        >
-          明度（Lightness）
-          <input type="number" value={lightness()} min={0} max={1} step={0.1} onInput={onInput(setLightness)} />
-          彩率（Chroma ratio）
-          <input type="number" value={chromaRatio()} min={0} max={1} step={0.1} onInput={onInput(setChromaRatio)} />
-          色相（Hue）
-          <input type="number" value={hue()} min={0} max={360} onInput={onInput(setHue)} />
-        </div>
-
-        <div class={classes.sliders}>
-          <div
-            class={classes.sliderTrack}
-            onMouseDown={onMouseDown(setLightness)}
-            onMouseMove={onMouseMove(setLightness)}
-          >
-            {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-              <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
-            ))}
+          <div style={{ width: 'max-content', display: 'grid', 'grid-template-columns': 'auto auto auto', gap: '1em' }}>
+            <div class={classes.previewBlackText}>Black</div>
+            <div class={classes.previewWhiteText}>White</div>
+            <div class={classes.previewBorder}>Border</div>
           </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Output</legend>
+
+          <div style={{ display: 'grid', 'grid-template-columns': 'auto', gap: '0.6em' }}>
+            <code class={classes.cssColorText}>{color().toString()}</code>
+            <code class={classes.cssColorText}>{color().to('hsl').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('srgb').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('srgb').toString({ format: 'hex' })}</code>
+            <code class={classes.cssColorText}>{color().to('oklab').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('lch').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('lab').toString()}</code>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Input</legend>
 
           <div
-            class={classes.sliderTrack}
-            onMouseDown={onMouseDown(setChromaRatio)}
-            onMouseMove={onMouseMove(setChromaRatio)}
+            style={{
+              width: 'max-content',
+              display: 'grid',
+              'grid-template-columns': 'auto 5em',
+              gap: '1em',
+              padding: '1em',
+            }}
           >
-            {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-              <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
-            ))}
+            明度（Lightness）
+            <input type="number" value={lightness()} min={0} max={1} step={0.1} onInput={onInput(setLightness)} />
+            彩率（Chroma ratio）
+            <input type="number" value={chromaRatio()} min={0} max={1} step={0.1} onInput={onInput(setChromaRatio)} />
+            色相（Hue）
+            <input type="number" value={hue()} min={0} max={360} onInput={onInput(setHue)} />
           </div>
 
-          <div
-            class={classes.sliderTrack}
-            onMouseDown={onMouseDown(setHue, 360)}
-            onMouseMove={onMouseMove(setHue, 360)}
-          >
-            {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-              <div
-                style={{
-                  background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
-                }}
-              />
-            ))}
+          <div class={classes.sliders}>
+            <div
+              class={classes.sliderTrack}
+              onMouseDown={onMouseDown(setLightness)}
+              onMouseMove={onMouseMove(setLightness)}
+            >
+              {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
+              ))}
+            </div>
+
+            <div
+              class={classes.sliderTrack}
+              onMouseDown={onMouseDown(setChromaRatio)}
+              onMouseMove={onMouseMove(setChromaRatio)}
+            >
+              {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
+              ))}
+            </div>
+
+            <div
+              class={classes.sliderTrack}
+              onMouseDown={onMouseDown(setHue, 360)}
+              onMouseMove={onMouseMove(setHue, 360)}
+            >
+              {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                <div
+                  style={{
+                    background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
+                  }}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </fieldset>
       </div>
     </main>
   )
