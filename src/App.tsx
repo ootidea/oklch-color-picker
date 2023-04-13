@@ -109,7 +109,6 @@ export function App() {
           <code class={classes.cssColorText}>{color().toString()}</code>
           <code class={classes.cssColorText}>{color().to('hsl').toString()}</code>
           <code class={classes.cssColorText}>{color().to('srgb').toString()}</code>
-          {/* @ts-ignore toString argument type is not defined */}
           <code class={classes.cssColorText}>{color().to('srgb').toString({ format: 'hex' })}</code>
           <code class={classes.cssColorText}>{color().to('oklab').toString()}</code>
           <code class={classes.cssColorText}>{color().to('lch').toString()}</code>
