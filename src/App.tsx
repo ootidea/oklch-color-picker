@@ -1,4 +1,4 @@
-import { clamp, modOf, rangeTo } from 'base-up'
+import { clamp, modOf, rangeUntil } from 'base-up'
 import Color from 'colorjs.io'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
@@ -47,7 +47,7 @@ function roundAt(value: number, nthDecimalPlace: number): number {
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(120)
-  return [hue, (newHue: number) => setHue(roundAt(modOf(newHue, 360), 1))] as const
+  return [hue, (newHue: number) => setHue(roundAt(modOf(newHue, 360 as number), 1))] as const
 }
 
 function createChromaRatioSignal() {
@@ -144,7 +144,7 @@ export function App() {
           onMouseDown={onMouseDown(setLightness)}
           onMouseMove={onMouseMove(setLightness)}
         >
-          {rangeTo(SLIDER_SIZE_PX as number).map((index) => (
+          {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
             <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
           ))}
         </div>
@@ -154,13 +154,13 @@ export function App() {
           onMouseDown={onMouseDown(setChromaRatio)}
           onMouseMove={onMouseMove(setChromaRatio)}
         >
-          {rangeTo(SLIDER_SIZE_PX as number).map((index) => (
+          {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
             <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
           ))}
         </div>
 
         <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)} onMouseMove={onMouseMove(setHue, 360)}>
-          {rangeTo(SLIDER_SIZE_PX as number).map((index) => (
+          {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
             <div
               style={{
                 background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
