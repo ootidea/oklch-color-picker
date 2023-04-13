@@ -3,8 +3,14 @@
   --previewPaddingBlock: 0.8em;
 }
 
+.sliders {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 2em;
+}
+
 .sliderTrack {
-  height: 25px;
+  height: 2em;
   width: max-content;
   display: grid;
   grid-auto-flow: column;
@@ -30,4 +36,7 @@
 }
 
 .cssColorText {
+  font-size: 16px;
+  font-weight: bold;
+  color: hsl(0 0% 30%);
 }
