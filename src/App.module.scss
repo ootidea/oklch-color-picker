@@ -1,6 +1,7 @@
 :root {
-  --previewPaddingInline: 0.5em;
+  --previewPaddingInline: 0.35em;
   --previewPaddingBlock: 0.8em;
+  --previewButtonRadius: 0.3em;
 }
 
 .sliders {
@@ -21,18 +22,21 @@
   padding: var(--previewPaddingInline) var(--previewPaddingBlock);
   background: var(--currentColor);
   color: white;
+  border-radius: var(--previewButtonRadius);
 }
 
 .previewBlackText {
   padding: var(--previewPaddingInline) var(--previewPaddingBlock);
   background: var(--currentColor);
   color: black;
+  border-radius: var(--previewButtonRadius);
 }
 
 .previewBorder {
   padding: calc(var(--previewPaddingInline) - 1px) calc(var(--previewPaddingBlock) - 1px);
   border: 1px solid var(--currentColor);
   color: var(--currentColor);
+  border-radius: var(--previewButtonRadius);
 }
 
 .cssColorText {
