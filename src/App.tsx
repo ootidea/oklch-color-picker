@@ -67,30 +67,6 @@ export function App() {
         <h1>Oklch color picker</h1>
 
         <fieldset>
-          <legend>Preview</legend>
-
-          <div style={{ width: 'max-content', display: 'grid', 'grid-template-columns': 'auto auto auto', gap: '1em' }}>
-            <div class={classes.previewBlackText}>Black</div>
-            <div class={classes.previewWhiteText}>White</div>
-            <div class={classes.previewBorder}>Border</div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Output</legend>
-
-          <div style={{ display: 'grid', 'grid-template-columns': 'auto', gap: '0.6em' }}>
-            <code class={classes.cssColorText}>{color().toString()}</code>
-            <code class={classes.cssColorText}>{color().to('hsl').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('srgb').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('srgb').toString({ format: 'hex' })}</code>
-            <code class={classes.cssColorText}>{color().to('oklab').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('lch').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('lab').toString()}</code>
-          </div>
-        </fieldset>
-
-        <fieldset>
           <legend>Input</legend>
 
           <div
@@ -168,6 +144,30 @@ export function App() {
                 <Triangle />
               </div>
             </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Preview</legend>
+
+          <div style={{ width: 'max-content', display: 'grid', 'grid-template-columns': 'auto auto auto', gap: '1em' }}>
+            <div class={classes.previewBlackText}>Black</div>
+            <div class={classes.previewWhiteText}>White</div>
+            <div class={classes.previewBorder}>Border</div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Output</legend>
+
+          <div style={{ display: 'grid', 'grid-template-columns': 'auto', gap: '0.6em' }}>
+            <code class={classes.cssColorText}>{color().toString()}</code>
+            <code class={classes.cssColorText}>{color().to('hsl').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('srgb').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('srgb').toString({ format: 'hex' })}</code>
+            <code class={classes.cssColorText}>{color().to('oklab').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('lch').toString()}</code>
+            <code class={classes.cssColorText}>{color().to('lab').toString()}</code>
           </div>
         </fieldset>
       </div>
