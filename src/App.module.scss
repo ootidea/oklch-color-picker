@@ -18,6 +18,14 @@
   grid-auto-columns: 1px;
 }
 
+.sliderMarkerCage {
+  width: 7px;
+  height: 7px;
+  color: hsl(0 0% 70%);
+
+  transform: translateX(-50%);
+}
+
 .previewWhiteText {
   padding: var(--previewPaddingInline) var(--previewPaddingBlock);
   background: var(--currentColor);

@@ -1,4 +1,5 @@
 import { clamp, isInstanceOf, modOf, rangeUntil, roundAt } from 'base-up'
+import { Triangle } from 'solid-design-parts'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
 import { createColorByChromaRatio, toHsl } from './color'
@@ -110,38 +111,62 @@ export function App() {
           </div>
 
           <div class={classes.sliders}>
-            <div
-              class={classes.sliderTrack}
-              onMouseDown={onMouseDown(setLightness)}
-              onMouseMove={onMouseMove(setLightness)}
-            >
-              {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
-              ))}
+            <div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
+                <Triangle direction="down" />
+              </div>
+              <div
+                class={classes.sliderTrack}
+                onMouseDown={onMouseDown(setLightness)}
+                onMouseMove={onMouseMove(setLightness)}
+              >
+                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                  <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
+                ))}
+              </div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
+                <Triangle />
+              </div>
             </div>
 
-            <div
-              class={classes.sliderTrack}
-              onMouseDown={onMouseDown(setChromaRatio)}
-              onMouseMove={onMouseMove(setChromaRatio)}
-            >
-              {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
-              ))}
+            <div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
+                <Triangle direction="down" />
+              </div>
+              <div
+                class={classes.sliderTrack}
+                onMouseDown={onMouseDown(setChromaRatio)}
+                onMouseMove={onMouseMove(setChromaRatio)}
+              >
+                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                  <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
+                ))}
+              </div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
+                <Triangle />
+              </div>
             </div>
 
-            <div
-              class={classes.sliderTrack}
-              onMouseDown={onMouseDown(setHue, 360)}
-              onMouseMove={onMouseMove(setHue, 360)}
-            >
-              {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                <div
-                  style={{
-                    background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
-                  }}
-                />
-              ))}
+            <div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
+                <Triangle direction="down" />
+              </div>
+              <div
+                class={classes.sliderTrack}
+                onMouseDown={onMouseDown(setHue, 360)}
+                onMouseMove={onMouseMove(setHue, 360)}
+              >
+                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                  <div
+                    style={{
+                      background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
+                    }}
+                  />
+                ))}
+              </div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
+                <Triangle />
+              </div>
             </div>
           </div>
         </fieldset>
