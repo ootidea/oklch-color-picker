@@ -5,17 +5,17 @@ import classes from './App.module.scss'
 import { createColorByChromaRatio, toHsl } from './color'
 
 function createHueSignal() {
-  const [hue, setHue] = createSignal(120)
+  const [hue, setHue] = createSignal(240)
   return [hue, (newHue: number) => setHue(roundAt(clamp(0, newHue, 360), 1))] as const
 }
 
 function createChromaRatioSignal() {
-  const [chromaRatio, setChromaRatio] = createSignal(0.5)
+  const [chromaRatio, setChromaRatio] = createSignal(0.8)
   return [chromaRatio, (newChromaRatio: number) => setChromaRatio(roundAt(clamp(0, newChromaRatio, 1), 3))] as const
 }
 
 function createLightnessSignal() {
-  const [Lightness, setLightness] = createSignal(0.8)
+  const [Lightness, setLightness] = createSignal(0.5)
   return [Lightness, (newLightness: number) => setLightness(roundAt(clamp(0, newLightness, 1), 3))] as const
 }
 
