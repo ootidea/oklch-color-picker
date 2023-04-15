@@ -45,20 +45,20 @@ export function App() {
       const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
       const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
       setter(maxValue * ratio)
-    }
 
-  const onMouseMove =
-    (setter: (value: number) => void, maxValue: number = 1) =>
-    (event: MouseEvent) => {
-      // if left-mouse-button is not pressed
-      if ((event.buttons & 1) === 0) return
+      document.body.addEventListener('mousemove', onMouseMove)
 
-      if (!isInstanceOf(event.currentTarget, HTMLElement)) return
+      function onMouseMove(event: MouseEvent) {
+        // if left-mouse-button is not pressed
+        if ((event.buttons & 1) === 0) {
+          document.body.removeEventListener('mousemove', onMouseMove)
+          return
+        }
 
-      const mouseX = event.clientX
-      const elementX = Math.floor(event.currentTarget.getBoundingClientRect().x)
-      const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
-      setter(maxValue * ratio)
+        const mouseX = event.clientX
+        const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
+        setter(maxValue * ratio)
+      }
     }
 
   return (
@@ -91,11 +91,7 @@ export function App() {
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
                 <Triangle direction="down" />
               </div>
-              <div
-                class={classes.sliderTrack}
-                onMouseDown={onMouseDown(setLightness)}
-                onMouseMove={onMouseMove(setLightness)}
-              >
+              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
                 {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
                 ))}
@@ -109,11 +105,7 @@ export function App() {
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
                 <Triangle direction="down" />
               </div>
-              <div
-                class={classes.sliderTrack}
-                onMouseDown={onMouseDown(setChromaRatio)}
-                onMouseMove={onMouseMove(setChromaRatio)}
-              >
+              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
                 {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
                 ))}
@@ -127,11 +119,7 @@ export function App() {
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
                 <Triangle direction="down" />
               </div>
-              <div
-                class={classes.sliderTrack}
-                onMouseDown={onMouseDown(setHue, 360)}
-                onMouseMove={onMouseMove(setHue, 360)}
-              >
+              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)}>
                 {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div
                     style={{
