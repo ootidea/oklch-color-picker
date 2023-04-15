@@ -145,9 +145,9 @@ export function App() {
           <legend>Preview</legend>
 
           <div style={{ width: 'max-content', display: 'grid', 'grid-template-columns': 'auto auto auto', gap: '1em' }}>
-            <div class={classes.previewBlackText}>Black</div>
-            <div class={classes.previewWhiteText}>White</div>
-            <div class={classes.previewBorder}>Border</div>
+            <div class={classes.previewBlackText}>Sample</div>
+            <div class={classes.previewWhiteText}>Sample</div>
+            <div class={classes.previewBorder}>Sample</div>
           </div>
         </fieldset>
 
