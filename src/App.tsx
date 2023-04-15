@@ -1,4 +1,4 @@
-import { clamp, isInstanceOf, modOf, rangeUntil, roundAt } from 'base-up'
+import { clamp, isInstanceOf, rangeUntil, roundAt } from 'base-up'
 import { Triangle } from 'solid-design-parts'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
@@ -6,7 +6,7 @@ import { createColorByChromaRatio, toHsl } from './color'
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(120)
-  return [hue, (newHue: number) => setHue(roundAt(modOf(newHue, 360 as number), 1))] as const
+  return [hue, (newHue: number) => setHue(roundAt(clamp(0, newHue, 360), 1))] as const
 }
 
 function createChromaRatioSignal() {
