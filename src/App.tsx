@@ -19,13 +19,19 @@ function createLightnessSignal() {
   return [Lightness, (newLightness: number) => setLightness(roundAt(clamp(0, newLightness, 1), 3))] as const
 }
 
+/** Easing function for lightness */
+function ease(x: number): number {
+  return Math.sqrt(x)
+}
+
 export function App() {
   const SLIDER_SIZE_PX = 361
 
   const [hue, setHue] = createHueSignal()
   const [chromaRatio, setChromaRatio] = createChromaRatioSignal()
   const [lightness, setLightness] = createLightnessSignal()
-  const color = createMemo(() => createColorByChromaRatio(lightness(), chromaRatio(), hue()))
+  const easedLightness = createMemo(() => ease(lightness()))
+  const color = createMemo(() => createColorByChromaRatio(easedLightness(), chromaRatio(), hue()))
 
   const onInput = (setter: (value: number) => void) => (event: InputEvent) => {
     if (!isInstanceOf(event.target, HTMLInputElement)) return
@@ -93,7 +99,7 @@ export function App() {
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
                 {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                  <div style={{ background: toHsl(index / (SLIDER_SIZE_PX - 1), chromaRatio(), hue()) }} />
+                  <div style={{ background: toHsl(ease(index / (SLIDER_SIZE_PX - 1)), chromaRatio(), hue()) }} />
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
@@ -107,7 +113,7 @@ export function App() {
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
                 {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                  <div style={{ background: toHsl(lightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
+                  <div style={{ background: toHsl(easedLightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
@@ -123,7 +129,7 @@ export function App() {
                 {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div
                     style={{
-                      background: toHsl(lightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
+                      background: toHsl(easedLightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
                     }}
                   />
                 ))}
