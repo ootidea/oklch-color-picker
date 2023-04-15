@@ -4,10 +4,16 @@
   --previewButtonRadius: 0.3em;
 }
 
+fieldset {
+  padding: 1.5em 2em;
+}
+
 .sliders {
   display: grid;
   grid-template-columns: auto;
   gap: 2em;
+
+  margin-top: 2em;
 }
 
 .sliderTrack {

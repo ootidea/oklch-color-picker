@@ -81,7 +81,6 @@ export function App() {
               display: 'grid',
               'grid-template-columns': 'auto 5em',
               gap: '1em',
-              padding: '1em',
             }}
           >
             明度（Lightness）
