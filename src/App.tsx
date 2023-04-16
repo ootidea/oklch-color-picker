@@ -1,8 +1,9 @@
 import { clamp, isInstanceOf, rangeUntil, roundAt } from 'base-up'
-import { Triangle } from 'solid-design-parts'
+import { Gravity, IconButton, Popover, Triangle } from 'solid-design-parts'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
 import { createColorByChromaRatio, toHsl } from './color'
+import helpCircleIcon from './help-circle-outline.svg'
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(240)
@@ -83,11 +84,41 @@ export function App() {
               gap: '1em',
             }}
           >
-            明度（Lightness）
+            <div style={{ display: 'flex', 'align-items': 'center' }}>
+              Lightness
+              <Popover
+                launcher={({ openPopover }) => (
+                  <Gravity>
+                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
+                  </Gravity>
+                )}
+              >
+                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
+                  Instead of the original lightness value in Oklch, it represents a corrected value that is closer to
+                  the lightness in HSL.
+                  <br />
+                  Specifically, by raising this value to the power of 0.74, you will get the lightness value in Oklch.
+                </p>
+              </Popover>
+            </div>
             <input type="number" value={lightness()} min={0} max={1} step={0.1} onInput={onInput(setLightness)} />
-            彩率（Chroma ratio）
+            <div style={{ display: 'flex', 'align-items': 'center' }}>
+              Chroma
+              <Popover
+                launcher={({ openPopover }) => (
+                  <Gravity>
+                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
+                  </Gravity>
+                )}
+              >
+                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
+                  Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within
+                  the sRGB color gamut. The maximum chroma is determined by lightness and hue.
+                </p>
+              </Popover>
+            </div>
             <input type="number" value={chromaRatio()} min={0} max={1} step={0.1} onInput={onInput(setChromaRatio)} />
-            色相（Hue）
+            <div>Hue</div>
             <input type="number" value={hue()} min={0} max={360} onInput={onInput(setHue)} />
           </div>
 
