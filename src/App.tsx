@@ -21,7 +21,7 @@ function createLightnessSignal() {
 
 /** Easing function for lightness */
 function ease(x: number): number {
-  return Math.sqrt(x)
+  return Math.pow(x, 0.74)
 }
 
 export function App() {
