@@ -1,5 +1,5 @@
 import { clamp, isInstanceOf, rangeUntil, roundAt } from 'base-up'
-import { Gravity, IconButton, Popover, Triangle } from 'solid-design-parts'
+import { Gravity, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
 import { createColorByChromaRatio, toHsl } from './color'
@@ -76,52 +76,6 @@ export function App() {
         <fieldset>
           <legend>Input</legend>
 
-          <div
-            style={{
-              width: 'max-content',
-              display: 'grid',
-              'grid-template-columns': 'auto 5em',
-              gap: '1em',
-            }}
-          >
-            <div style={{ display: 'flex', 'align-items': 'center' }}>
-              Lightness
-              <Popover
-                launcher={({ openPopover }) => (
-                  <Gravity>
-                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
-                  </Gravity>
-                )}
-              >
-                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
-                  Instead of the original lightness value in Oklch, it represents a corrected value that is closer to
-                  the lightness in HSL.
-                  <br />
-                  Specifically, by raising this value to the power of 0.74, you will get the lightness value in Oklch.
-                </p>
-              </Popover>
-            </div>
-            <input type="number" value={lightness()} min={0} max={1} step={0.1} onInput={onInput(setLightness)} />
-            <div style={{ display: 'flex', 'align-items': 'center' }}>
-              Chroma
-              <Popover
-                launcher={({ openPopover }) => (
-                  <Gravity>
-                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
-                  </Gravity>
-                )}
-              >
-                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
-                  Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within
-                  the sRGB color gamut. The maximum chroma is determined by lightness and hue.
-                </p>
-              </Popover>
-            </div>
-            <input type="number" value={chromaRatio()} min={0} max={1} step={0.1} onInput={onInput(setChromaRatio)} />
-            <div>Hue</div>
-            <input type="number" value={hue()} min={0} max={360} onInput={onInput(setHue)} />
-          </div>
-
           <div class={classes.sliders}>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
@@ -168,6 +122,54 @@ export function App() {
                 <Triangle />
               </div>
             </div>
+          </div>
+
+          <div
+            style={{
+              'margin-top': '2em',
+              width: 'max-content',
+              display: 'grid',
+              'grid-template-columns': 'auto 5em',
+              'align-items': 'center',
+              gap: '1em',
+            }}
+          >
+            <div style={{ display: 'flex', 'align-items': 'center' }}>
+              Lightness
+              <Popover
+                launcher={({ openPopover }) => (
+                  <Gravity>
+                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
+                  </Gravity>
+                )}
+              >
+                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
+                  Instead of the original lightness value in Oklch, it represents a corrected value that is closer to
+                  the lightness in HSL.
+                  <br />
+                  Specifically, by raising this value to the power of 0.74, you will get the lightness value in Oklch.
+                </p>
+              </Popover>
+            </div>
+            <NumberInput value={lightness()} min={0} max={1} required onValid={setLightness} />
+            <div style={{ display: 'flex', 'align-items': 'center' }}>
+              Chroma
+              <Popover
+                launcher={({ openPopover }) => (
+                  <Gravity>
+                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
+                  </Gravity>
+                )}
+              >
+                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
+                  Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within
+                  the sRGB color gamut. The maximum chroma is determined by lightness and hue.
+                </p>
+              </Popover>
+            </div>
+            <NumberInput value={chromaRatio()} min={0} max={1} required onValid={setChromaRatio} />
+            <div>Hue</div>
+            <NumberInput value={hue()} min={0} max={360} required onValid={setHue} />
           </div>
         </fieldset>
 
