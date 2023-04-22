@@ -34,13 +34,6 @@ export function App() {
   const easedLightness = createMemo(() => ease(lightness()))
   const color = createMemo(() => createColorByChromaRatio(easedLightness(), chromaRatio(), hue()))
 
-  const onInput = (setter: (value: number) => void) => (event: InputEvent) => {
-    if (!isInstanceOf(event.target, HTMLInputElement)) return
-
-    const newValue = event.target.value
-    setter(Number(newValue))
-  }
-
   const onMouseDown =
     (setter: (value: number) => void, maxValue: number = 1) =>
     (event: MouseEvent) => {
