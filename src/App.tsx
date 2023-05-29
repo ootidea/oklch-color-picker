@@ -26,7 +26,7 @@ function ease(x: number): number {
 }
 
 export function App() {
-  const SLIDER_SIZE_PX = 361
+  const SLIDER_SIZE_PX = 360
 
   const [hue, setHue] = createHueSignal()
   const [chromaRatio, setChromaRatio] = createChromaRatioSignal()
