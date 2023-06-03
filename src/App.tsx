@@ -169,10 +169,11 @@ export function App() {
         <fieldset>
           <legend>Preview</legend>
 
-          <div style={{ width: 'max-content', display: 'grid', 'grid-template-columns': 'auto auto auto', gap: '1em' }}>
+          <div style={{ width: 'max-content', display: 'grid', 'grid-auto-flow': 'column', gap: '1em' }}>
             <div class={classes.previewWhiteText}>Sample</div>
             <div class={classes.previewBlackText}>Sample</div>
             <div class={classes.previewBorder}>Sample</div>
+            <div class={classes.previewLink}>Sample</div>
           </div>
         </fieldset>
 

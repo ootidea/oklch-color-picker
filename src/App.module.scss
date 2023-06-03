@@ -56,6 +56,12 @@ legend {
   border-radius: var(--previewButtonRadius);
 }
 
+.previewLink {
+  padding: calc(var(--previewPaddingInline) - 1px) calc(var(--previewPaddingBlock) - 1px);
+  color: var(--currentColor);
+  text-decoration: underline var(--currentColor);
+}
+
 .cssColorText {
   font-size: 1rem;
   font-weight: bold;
