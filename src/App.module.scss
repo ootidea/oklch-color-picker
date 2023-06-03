@@ -13,10 +13,12 @@ legend {
   font-size: 1.4em;
 }
 
-.sliders {
+.inputGrid {
+  width: max-content;
   display: grid;
-  grid-template-columns: auto;
-  gap: 2em;
+  grid-template-columns: auto auto 5em;
+  align-items: center;
+  gap: 1em;
 }
 
 .sliderTrack {

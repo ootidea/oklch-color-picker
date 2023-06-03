@@ -69,64 +69,7 @@ export function App() {
         <fieldset>
           <legend>Input</legend>
 
-          <div class={classes.sliders}>
-            <div>
-              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
-                <Triangle direction="down" />
-              </div>
-              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
-                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                  <div style={{ background: toHsl(ease(index / (SLIDER_SIZE_PX - 1)), chromaRatio(), hue()) }} />
-                ))}
-              </div>
-              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
-                <Triangle />
-              </div>
-            </div>
-
-            <div>
-              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
-                <Triangle direction="down" />
-              </div>
-              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
-                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                  <div style={{ background: toHsl(easedLightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
-                ))}
-              </div>
-              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
-                <Triangle />
-              </div>
-            </div>
-
-            <div>
-              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
-                <Triangle direction="down" />
-              </div>
-              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)}>
-                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
-                  <div
-                    style={{
-                      background: toHsl(easedLightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
-                    }}
-                  />
-                ))}
-              </div>
-              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
-                <Triangle />
-              </div>
-            </div>
-          </div>
-
-          <div
-            style={{
-              'margin-top': '2em',
-              width: 'max-content',
-              display: 'grid',
-              'grid-template-columns': 'auto 5em',
-              'align-items': 'center',
-              gap: '1em',
-            }}
-          >
+          <div class={classes.inputGrid}>
             <div style={{ display: 'flex', 'align-items': 'center' }}>
               Lightness
               <Popover
@@ -144,7 +87,21 @@ export function App() {
                 </p>
               </Popover>
             </div>
+            <div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
+                <Triangle direction="down" />
+              </div>
+              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
+                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                  <div style={{ background: toHsl(ease(index / (SLIDER_SIZE_PX - 1)), chromaRatio(), hue()) }} />
+                ))}
+              </div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
+                <Triangle />
+              </div>
+            </div>
             <NumberInput value={lightness()} min={0} max={1} required onValid={setLightness} />
+
             <div style={{ display: 'flex', 'align-items': 'center' }}>
               Chroma
               <Popover
@@ -160,8 +117,39 @@ export function App() {
                 </p>
               </Popover>
             </div>
+            <div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
+                <Triangle direction="down" />
+              </div>
+              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
+                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                  <div style={{ background: toHsl(easedLightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
+                ))}
+              </div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
+                <Triangle />
+              </div>
+            </div>
             <NumberInput value={chromaRatio()} min={0} max={1} required onValid={setChromaRatio} />
+
             <div>Hue</div>
+            <div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
+                <Triangle direction="down" />
+              </div>
+              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)}>
+                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                  <div
+                    style={{
+                      background: toHsl(easedLightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
+                    }}
+                  />
+                ))}
+              </div>
+              <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
+                <Triangle />
+              </div>
+            </div>
             <NumberInput value={hue()} min={0} max={360} required onValid={setHue} />
           </div>
         </fieldset>
