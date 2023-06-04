@@ -64,7 +64,7 @@ export function App() {
   return (
     <main style={{ display: 'flex', 'justify-content': 'center', '--currentColor': color().to('hsl').toString() }}>
       <div>
-        <h1>Oklch color picker</h1>
+        <h1 style={{ 'text-align': 'center' }}>Oklch color picker</h1>
 
         <fieldset>
           <legend>Input</legend>
