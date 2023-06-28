@@ -1,9 +1,15 @@
 import { clamp, isInstanceOf, rangeUntil, roundAt } from 'base-up'
-import { Gravity, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
+import { Gravity, Icon, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
 import { createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
 import { createColorByChromaRatio, toHsl } from './color'
+import heartOutlineIcon from './heart-outline.svg'
+import heartIcon from './heart.svg'
 import helpCircleIcon from './help-circle-outline.svg'
+import starOutlineIcon from './star-outline.svg'
+import starIcon from './star.svg'
+import thumbUpOutlineIcon from './thumb-up-outline.svg'
+import thumbUpIcon from './thumb-up.svg'
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(240)
@@ -157,11 +163,32 @@ export function App() {
         <fieldset>
           <legend>Preview</legend>
 
-          <div style={{ width: 'max-content', display: 'grid', 'grid-auto-flow': 'column', gap: '1em' }}>
-            <div class={classes.previewWhiteText}>Sample</div>
-            <div class={classes.previewBlackText}>Sample</div>
-            <div class={classes.previewBorder}>Sample</div>
-            <div class={classes.previewLink}>Sample</div>
+          <div style={{ display: 'flex', 'align-items': 'start', gap: '3em' }}>
+            <div class={classes.previewSquare} />
+            <div>
+              <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center', gap: '1em' }}>
+                <div class={classes.previewWhiteText}>Sample</div>
+                <div class={classes.previewBlackText}>Sample</div>
+                <div class={classes.previewBorder}>Sample</div>
+                <div class={classes.previewLink}>Sample</div>
+              </div>
+              <div
+                style={{
+                  'margin-top': '2em',
+                  display: 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  gap: '1.5em',
+                }}
+              >
+                <Icon src={heartOutlineIcon} color="var(--currentColor)" />
+                <Icon src={starOutlineIcon} color="var(--currentColor)" />
+                <Icon src={thumbUpOutlineIcon} color="var(--currentColor)" />
+                <Icon src={heartIcon} color="var(--currentColor)" />
+                <Icon src={starIcon} color="var(--currentColor)" />
+                <Icon src={thumbUpIcon} color="var(--currentColor)" />
+              </div>
+            </div>
           </div>
         </fieldset>
 

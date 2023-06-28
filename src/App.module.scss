@@ -37,6 +37,12 @@ legend {
   transform: translateX(-50%);
 }
 
+.previewSquare {
+  width: 6em;
+  aspect-ratio: 1;
+  background: var(--currentColor);
+}
+
 .previewWhiteText {
   padding: var(--previewPaddingInline) var(--previewPaddingBlock);
   background: var(--currentColor);
