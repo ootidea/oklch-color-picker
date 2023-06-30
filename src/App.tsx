@@ -12,7 +12,7 @@ import thumbUpOutlineIcon from './thumb-up-outline.svg'
 import thumbUpIcon from './thumb-up.svg'
 
 function createHueSignal() {
-  const [hue, setHue] = createSignal(240)
+  const [hue, setHue] = createSignal(180)
   return [hue, (newHue: number) => setHue(roundAt(clamp(0, newHue, 360), 1))] as const
 }
 
@@ -22,7 +22,7 @@ function createChromaRatioSignal() {
 }
 
 function createLightnessSignal() {
-  const [Lightness, setLightness] = createSignal(0.5)
+  const [Lightness, setLightness] = createSignal(0.6)
   return [Lightness, (newLightness: number) => setLightness(roundAt(clamp(0, newLightness, 1), 3))] as const
 }
 
