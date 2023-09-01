@@ -4,6 +4,10 @@
   --previewButtonRadius: 0.3em;
 }
 
+h1 {
+  color: oklch(40% 0 0);
+}
+
 fieldset {
   margin: 1em;
   padding: 1.5em 2em;
@@ -13,6 +17,7 @@ fieldset {
 
 legend {
   font-size: 1.4em;
+  color: oklch(30% 0 0);
 }
 
 .inputGrid {
