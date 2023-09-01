@@ -4,7 +4,7 @@ import Color from 'colorjs.io'
 const maxChromaMemo: Record<string, number> = {}
 
 /** sRGBの色域に収まる最大のchroma値を二分法で探索する */
-function calculateMaxChromaInGamut(lightness: number, hue: number, delta: number = 0.001): number {
+export function calculateMaxChromaInGamut(lightness: number, hue: number, delta: number = 0.001): number {
   const memoKey = `${lightness},${hue}`
   const cachedValue = maxChromaMemo[memoKey]
   if (cachedValue !== undefined) return cachedValue

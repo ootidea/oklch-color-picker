@@ -1,8 +1,9 @@
-import { clamp, isInstanceOf, rangeUntil, roundAt } from 'base-up'
-import { Gravity, Icon, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
-import { createMemo, createSignal } from 'solid-js'
+import { clamp, isInstanceOf, rangeUntil } from 'base-up'
+import Color from 'colorjs.io'
+import { Gravity, Icon, IconButton, NumberInput, Popover, TextInput, Triangle } from 'solid-design-parts'
+import { batch, createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
-import { createColorByChromaRatio, toHsl } from './color'
+import { calculateMaxChromaInGamut, createColorByChromaRatio, toHsl } from './color'
 import heartOutlineIcon from './heart-outline.svg'
 import heartIcon from './heart.svg'
 import helpCircleIcon from './help-circle-outline.svg'
@@ -13,32 +14,61 @@ import thumbUpIcon from './thumb-up.svg'
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(180)
-  return [hue, (newHue: number) => setHue(roundAt(clamp(0, newHue, 360), 1))] as const
+  return [hue, (newHue: number) => setHue(clamp(0, newHue, 360))] as const
+}
+
+function isInvalidColorString(colorString: string): boolean {
+  try {
+    new Color(colorString)
+  } catch {
+    return true
+  }
+  return false
+}
+
+function onInput(event: Event) {
+  if (!isInstanceOf(event.target, HTMLInputElement)) return
+
+  const colorString = event.target.value
+  if (isInvalidColorString(colorString)) return
+
+  const oklch = new Color(colorString).to('oklch')
+  const lightness = oklch.get('l')
+  const chroma = oklch.get('c')
+  const hue = oklch.get('h')
+  batch(() => {
+    setLightness(unease(lightness))
+    setChromaRatio(chroma / calculateMaxChromaInGamut(lightness, hue))
+    setHue(hue)
+  })
 }
 
 function createChromaRatioSignal() {
   const [chromaRatio, setChromaRatio] = createSignal(0.8)
-  return [chromaRatio, (newChromaRatio: number) => setChromaRatio(roundAt(clamp(0, newChromaRatio, 1), 3))] as const
+  return [chromaRatio, (newChromaRatio: number) => setChromaRatio(clamp(0, newChromaRatio, 1))] as const
 }
 
 function createLightnessSignal() {
   const [Lightness, setLightness] = createSignal(0.6)
-  return [Lightness, (newLightness: number) => setLightness(roundAt(clamp(0, newLightness, 1), 3))] as const
+  return [Lightness, (newLightness: number) => setLightness(clamp(0, newLightness, 1))] as const
 }
 
 /** Easing function for lightness */
 function ease(x: number): number {
   return Math.pow(x, 0.74)
 }
+function unease(x: number): number {
+  return Math.pow(x, 1 / 0.74)
+}
+
+const [hue, setHue] = createHueSignal()
+const [chromaRatio, setChromaRatio] = createChromaRatioSignal()
+const [lightness, setLightness] = createLightnessSignal()
+const easedLightness = createMemo(() => ease(lightness()))
+const color = createMemo(() => createColorByChromaRatio(easedLightness(), chromaRatio(), hue()))
 
 export function App() {
   const SLIDER_SIZE_PX = 360
-
-  const [hue, setHue] = createHueSignal()
-  const [chromaRatio, setChromaRatio] = createChromaRatioSignal()
-  const [lightness, setLightness] = createLightnessSignal()
-  const easedLightness = createMemo(() => ease(lightness()))
-  const color = createMemo(() => createColorByChromaRatio(easedLightness(), chromaRatio(), hue()))
 
   const onMouseDown =
     (setter: (value: number) => void, maxValue: number = 1) =>
@@ -106,7 +136,13 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput value={lightness()} min={0} max={1} required onValid={setLightness} />
+            <NumberInput
+              value={lightness()}
+              min={0}
+              max={1}
+              required
+              onChangeValue={(value) => value !== undefined && setLightness(value)}
+            />
 
             <div style={{ display: 'flex', 'align-items': 'center' }}>
               Chroma
@@ -136,7 +172,13 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput value={chromaRatio()} min={0} max={1} required onValid={setChromaRatio} />
+            <NumberInput
+              value={chromaRatio()}
+              min={0}
+              max={1}
+              required
+              onChangeValue={(value) => value !== undefined && setChromaRatio(value)}
+            />
 
             <div>Hue</div>
             <div>
@@ -156,7 +198,13 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput value={hue()} min={0} max={360} required onValid={setHue} />
+            <NumberInput
+              value={hue()}
+              min={0}
+              max={360}
+              required
+              onChangeValue={(value) => value !== undefined && setHue(value)}
+            />
           </div>
         </fieldset>
 
@@ -195,14 +243,18 @@ export function App() {
         <fieldset>
           <legend>Output</legend>
 
-          <div style={{ display: 'grid', 'grid-template-columns': 'auto', gap: '0.6em' }}>
-            <code class={classes.cssColorText}>{color().toString()}</code>
-            <code class={classes.cssColorText}>{color().to('hsl').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('srgb').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('srgb').toString({ format: 'hex' })}</code>
-            <code class={classes.cssColorText}>{color().to('oklab').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('lch').toString()}</code>
-            <code class={classes.cssColorText}>{color().to('lab').toString()}</code>
+          <div style={{ display: 'grid', gap: '0.1em', 'font-size': '0.9em' }}>
+            <TextInput value={color().toString()} error={isInvalidColorString} onInput={onInput} />
+            <TextInput value={color().to('hsl').toString()} error={isInvalidColorString} onInput={onInput} />
+            <TextInput value={color().to('srgb').toString()} error={isInvalidColorString} onInput={onInput} />
+            <TextInput
+              value={color().to('srgb').toString({ format: 'hex' })}
+              error={isInvalidColorString}
+              onInput={onInput}
+            />
+            <TextInput value={color().to('oklab').toString()} error={isInvalidColorString} onInput={onInput} />
+            <TextInput value={color().to('lch').toString()} error={isInvalidColorString} onInput={onInput} />
+            <TextInput value={color().to('lab').toString()} error={isInvalidColorString} onInput={onInput} />
           </div>
         </fieldset>
       </div>
