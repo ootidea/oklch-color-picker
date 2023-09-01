@@ -243,14 +243,14 @@ export function App() {
           <legend>Output</legend>
 
           <div style={{ display: 'grid', gap: '0.1em', 'font-size': '0.9em' }}>
-            <TextInput value={color().toString()} error={isInvalidColorString} onInput={onInput} />
-            <TextInput value={color().to('hsl').toString()} error={isInvalidColorString} onInput={onInput} />
-            <TextInput value={color().to('srgb').toString()} error={isInvalidColorString} onInput={onInput} />
             <TextInput
               value={color().to('srgb').toString({ format: 'hex' })}
               error={isInvalidColorString}
               onInput={onInput}
             />
+            <TextInput value={color().to('srgb').toString()} error={isInvalidColorString} onInput={onInput} />
+            <TextInput value={color().to('hsl').toString()} error={isInvalidColorString} onInput={onInput} />
+            <TextInput value={color().toString()} error={isInvalidColorString} onInput={onInput} />
             <TextInput value={color().to('oklab').toString()} error={isInvalidColorString} onInput={onInput} />
             <TextInput value={color().to('lch').toString()} error={isInvalidColorString} onInput={onInput} />
             <TextInput value={color().to('lab').toString()} error={isInvalidColorString} onInput={onInput} />
