@@ -4,13 +4,13 @@ import { Gravity, Icon, IconButton, NumberInput, Popover, TextInput, Triangle } 
 import { batch, createMemo, createSignal } from 'solid-js'
 import classes from './App.module.scss'
 import { calculateMaxChromaInGamut, createColorByChromaRatio, toHsl } from './color'
-import heartOutlineIcon from './heart-outline.svg'
-import heartIcon from './heart.svg'
-import helpCircleIcon from './help-circle-outline.svg'
-import starOutlineIcon from './star-outline.svg'
-import starIcon from './star.svg'
-import thumbUpOutlineIcon from './thumb-up-outline.svg'
-import thumbUpIcon from './thumb-up.svg'
+import heartOutlineIcon from './image/heart-outline.svg'
+import heartIcon from './image/heart.svg'
+import helpCircleIcon from './image/help-circle-outline.svg'
+import starOutlineIcon from './image/star-outline.svg'
+import starIcon from './image/star.svg'
+import thumbUpOutlineIcon from './image/thumb-up-outline.svg'
+import thumbUpIcon from './image/thumb-up.svg'
 
 function createHueSignal() {
   const [hue, setHue] = createSignal(180)
