@@ -102,7 +102,7 @@ export function App() {
         <h1 style={{ 'text-align': 'center' }}>Oklch color picker</h1>
 
         <fieldset>
-          <legend>Input</legend>
+          <legend>Color Input</legend>
 
           <div class={classes.inputGrid}>
             <div style={{ display: 'flex', 'align-items': 'center' }}>
@@ -208,7 +208,7 @@ export function App() {
         </fieldset>
 
         <fieldset>
-          <legend>Preview</legend>
+          <legend>Color Preview</legend>
 
           <div style={{ display: 'flex', 'align-items': 'start', gap: '3em' }}>
             <div class={classes.previewSquare} />
@@ -240,7 +240,7 @@ export function App() {
         </fieldset>
 
         <fieldset>
-          <legend>Output</legend>
+          <legend>CSS Colors</legend>
 
           <div style={{ display: 'grid', gap: '0.1em', 'font-size': '0.9em' }}>
             <TextInput
