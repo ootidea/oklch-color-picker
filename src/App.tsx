@@ -92,8 +92,7 @@ export function App() {
         }
 
         const mouseX = event.clientX
-        const ratio = (mouseX - elementX) / SLIDER_SIZE_PX
-        setter(maxValue * ratio)
+        setter((mouseX - elementX) * (maxValue / SLIDER_SIZE_PX))
       }
     }
 
