@@ -17,6 +17,16 @@ function createHueSignal() {
   return [hue, (newHue: number) => setHue(clamp(0, newHue, 360))] as const
 }
 
+function createChromaRatioSignal() {
+  const [chromaRatio, setChromaRatio] = createSignal(0.8)
+  return [chromaRatio, (newChromaRatio: number) => setChromaRatio(clamp(0, newChromaRatio, 1))] as const
+}
+
+function createLightnessSignal() {
+  const [Lightness, setLightness] = createSignal(0.6)
+  return [Lightness, (newLightness: number) => setLightness(clamp(0, newLightness, 1))] as const
+}
+
 function isInvalidColorString(colorString: string): boolean {
   try {
     new Color(colorString)
@@ -41,16 +51,6 @@ function onInput(event: Event) {
     setChromaRatio(chroma / calculateMaxChromaInGamut(lightness, hue))
     setHue(hue)
   })
-}
-
-function createChromaRatioSignal() {
-  const [chromaRatio, setChromaRatio] = createSignal(0.8)
-  return [chromaRatio, (newChromaRatio: number) => setChromaRatio(clamp(0, newChromaRatio, 1))] as const
-}
-
-function createLightnessSignal() {
-  const [Lightness, setLightness] = createSignal(0.6)
-  return [Lightness, (newLightness: number) => setLightness(clamp(0, newLightness, 1))] as const
 }
 
 /** Easing function for lightness */
