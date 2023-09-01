@@ -7,6 +7,8 @@
 fieldset {
   margin: 1em;
   padding: 1.5em 2em;
+  border-radius: 0.5em;
+  border: 1px solid oklch(75% 0 0);
 }
 
 legend {
