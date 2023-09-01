@@ -110,7 +110,7 @@ export function App() {
               <Popover
                 launcher={({ openPopover }) => (
                   <Gravity>
-                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
+                    <IconButton src={helpCircleIcon} size="1.5em" iconColor="oklch(60% 0 0)" onClick={openPopover} />
                   </Gravity>
                 )}
               >
@@ -148,7 +148,7 @@ export function App() {
               <Popover
                 launcher={({ openPopover }) => (
                   <Gravity>
-                    <IconButton src={helpCircleIcon} size="1.3em" iconColor="hsl(0 0% 50%)" onClick={openPopover} />
+                    <IconButton src={helpCircleIcon} size="1.5em" iconColor="oklch(60% 0 0)" onClick={openPopover} />
                   </Gravity>
                 )}
               >
