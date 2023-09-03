@@ -1,9 +1,9 @@
-import { clamp, isInstanceOf, rangeUntil } from 'base-up'
-import Color from 'colorjs.io'
-import { Gravity, Icon, IconButton, NumberInput, Popover, TextInput, Triangle } from 'solid-design-parts'
-import { batch, createMemo, createSignal } from 'solid-js'
+import { isInstanceOf, rangeUntil } from 'base-up'
+import { Gravity, Icon, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
+import { createMemo } from 'solid-js'
 import classes from './App.module.scss'
-import { calculateMaxChromaInGamut, createColorByChromaRatio, toHsl } from './color'
+import { createColorByChromaRatio, ease, toHsl } from './color'
+import { CssColorOutput } from './CssColorOutput'
 import heartOutlineIcon from './image/heart-outline.svg'
 import heartIcon from './image/heart.svg'
 import helpCircleIcon from './image/help-circle-outline.svg'
@@ -11,59 +11,8 @@ import starOutlineIcon from './image/star-outline.svg'
 import starIcon from './image/star.svg'
 import thumbUpOutlineIcon from './image/thumb-up-outline.svg'
 import thumbUpIcon from './image/thumb-up.svg'
+import { chromaRatio, hue, lightness, setChromaRatio, setHue, setLightness } from './signal'
 
-function createHueSignal() {
-  const [hue, setHue] = createSignal(180)
-  return [hue, (newHue: number) => setHue(clamp(0, newHue, 360))] as const
-}
-
-function createChromaRatioSignal() {
-  const [chromaRatio, setChromaRatio] = createSignal(0.8)
-  return [chromaRatio, (newChromaRatio: number) => setChromaRatio(clamp(0, newChromaRatio, 1))] as const
-}
-
-function createLightnessSignal() {
-  const [Lightness, setLightness] = createSignal(0.6)
-  return [Lightness, (newLightness: number) => setLightness(clamp(0, newLightness, 1))] as const
-}
-
-function isInvalidColorString(colorString: string): boolean {
-  try {
-    new Color(colorString)
-  } catch {
-    return true
-  }
-  return false
-}
-
-function onInput(event: Event) {
-  if (!isInstanceOf(event.target, HTMLInputElement)) return
-
-  const colorString = event.target.value
-  if (isInvalidColorString(colorString)) return
-
-  const oklch = new Color(colorString).to('oklch')
-  const lightness = oklch.get('l')
-  const chroma = oklch.get('c')
-  const hue = oklch.get('h')
-  batch(() => {
-    setLightness(unease(lightness))
-    setChromaRatio(chroma / calculateMaxChromaInGamut(lightness, hue))
-    setHue(hue)
-  })
-}
-
-/** Easing function for lightness */
-function ease(x: number): number {
-  return Math.pow(x, 0.74)
-}
-function unease(x: number): number {
-  return Math.pow(x, 1 / 0.74)
-}
-
-const [hue, setHue] = createHueSignal()
-const [chromaRatio, setChromaRatio] = createChromaRatioSignal()
-const [lightness, setLightness] = createLightnessSignal()
 const easedLightness = createMemo(() => ease(lightness()))
 const color = createMemo(() => createColorByChromaRatio(easedLightness(), chromaRatio(), hue()))
 
@@ -242,18 +191,14 @@ export function App() {
         <fieldset>
           <legend>CSS Colors</legend>
 
-          <div style={{ display: 'grid', gap: '0.1em', 'font-size': '0.9em' }}>
-            <TextInput
-              value={color().to('srgb').toString({ format: 'hex' })}
-              error={isInvalidColorString}
-              onInput={onInput}
-            />
-            <TextInput value={color().to('srgb').toString()} error={isInvalidColorString} onInput={onInput} />
-            <TextInput value={color().to('hsl').toString()} error={isInvalidColorString} onInput={onInput} />
-            <TextInput value={color().toString()} error={isInvalidColorString} onInput={onInput} />
-            <TextInput value={color().to('oklab').toString()} error={isInvalidColorString} onInput={onInput} />
-            <TextInput value={color().to('lch').toString()} error={isInvalidColorString} onInput={onInput} />
-            <TextInput value={color().to('lab').toString()} error={isInvalidColorString} onInput={onInput} />
+          <div style={{ display: 'grid', gap: '0.4em' }}>
+            <CssColorOutput color={color().to('srgb').toString({ format: 'hex' })} />
+            <CssColorOutput color={color().to('srgb').toString()} />
+            <CssColorOutput color={color().to('hsl').toString()} />
+            <CssColorOutput color={color().toString()} />
+            <CssColorOutput color={color().to('oklab').toString()} />
+            <CssColorOutput color={color().to('lch').toString()} />
+            <CssColorOutput color={color().to('lab').toString()} />
           </div>
         </fieldset>
       </div>

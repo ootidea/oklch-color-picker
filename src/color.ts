@@ -35,3 +35,21 @@ export function createColorByChromaRatio(lightness: number, chromaRatio: number,
 export function toHsl(lightness: number, chromaRatio: number, hue: number): string {
   return createColorByChromaRatio(lightness, chromaRatio, hue).to('hsl').toString()
 }
+
+export function isInvalidColorString(colorString: string): boolean {
+  try {
+    new Color(colorString)
+  } catch {
+    return true
+  }
+  return false
+}
+
+/** Easing function for lightness */
+export function ease(x: number): number {
+  return Math.pow(x, 0.74)
+}
+
+export function unease(x: number): number {
+  return Math.pow(x, 1 / 0.74)
+}
