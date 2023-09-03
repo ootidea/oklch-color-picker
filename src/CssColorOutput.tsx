@@ -33,6 +33,7 @@ export function CssColorOutput(props: { color: string }) {
                   setChromaRatio(chroma / calculateMaxChromaInGamut(lightness, hue))
                   setHue(hue)
                 })
+                closeModal()
               }}
             >
               <TextInput
@@ -42,9 +43,7 @@ export function CssColorOutput(props: { color: string }) {
                 onValid={setColorString}
               />
               <Gravity to="right" style={{ padding: '0.5em 1em' }}>
-                <Button type="submit" onClick={closeModal}>
-                  OK
-                </Button>
+                <Button type="submit">OK</Button>
               </Gravity>
             </form>
           )
