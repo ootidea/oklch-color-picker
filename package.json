@@ -13,20 +13,20 @@
     "check:biome": "biome check"
   },
   "dependencies": {
-    "base-up": "^0.15.0",
-    "colorjs.io": "^0.4.5",
+    "base-up": "^2.0.0",
+    "colorjs.io": "^0.5.2",
     "solid-design-parts": "^0.6.2",
-    "solid-js": "^1.7.11"
+    "solid-js": "^1.9.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.3",
-    "@tsconfig/strictest": "^2.0.1",
+    "@tsconfig/strictest": "^2.0.5",
     "npm-run-all2": "^6.2.3",
-    "sass": "^1.63.6",
+    "sass": "^1.79.5",
     "sort-package-json": "^2.10.1",
-    "typescript": "^5.0.4",
-    "vite": "^4.2.3",
-    "vite-plugin-solid": "^2.7.0"
+    "typescript": "^5.6.3",
+    "vite": "^5.4.8",
+    "vite-plugin-solid": "^2.10.2"
   },
-  "packageManager": "pnpm@9.10.0"
+  "packageManager": "pnpm@9.12.1"
 }

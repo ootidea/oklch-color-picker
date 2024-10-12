@@ -1,4 +1,4 @@
-import { isInstanceOf, rangeUntil } from 'base-up'
+import { isInstanceOf, sequentialNumbersUntil } from 'base-up'
 import { Gravity, Icon, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
 import { createMemo } from 'solid-js'
 import classes from './App.module.scss'
@@ -56,27 +56,20 @@ export function App() {
           <div class={classes.inputGrid}>
             <div style={{ display: 'flex', 'align-items': 'center' }}>
               Lightness
-              <Popover
-                launcher={({ openPopover }) => (
-                  <Gravity>
-                    <IconButton src={helpCircleIcon} size="1.5em" iconColor="oklch(60% 0 0)" onClick={openPopover} />
-                  </Gravity>
-                )}
+              <Gravity
+                title={
+                  'Instead of the original lightness value in Oklch, it represents a corrected value that is closer to the lightness in HSL.\nSpecifically, by raising this value to the power of 0.74, you will get the lightness value in Oklch.'
+                }
               >
-                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
-                  Instead of the original lightness value in Oklch, it represents a corrected value that is closer to
-                  the lightness in HSL.
-                  <br />
-                  Specifically, by raising this value to the power of 0.74, you will get the lightness value in Oklch.
-                </p>
-              </Popover>
+                <IconButton src={helpCircleIcon} size="1.5em" iconColor="oklch(60% 0 0)" />
+              </Gravity>
             </div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
                 <Triangle direction="down" />
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
-                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div style={{ background: toHsl(ease(index / (SLIDER_SIZE_PX - 1)), chromaRatio(), hue()) }} />
                 ))}
               </div>
@@ -112,7 +105,7 @@ export function App() {
                 <Triangle direction="down" />
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
-                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div style={{ background: toHsl(easedLightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
                 ))}
               </div>
@@ -134,7 +127,7 @@ export function App() {
                 <Triangle direction="down" />
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)}>
-                {rangeUntil(SLIDER_SIZE_PX as number).map((index) => (
+                {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div
                     style={{
                       background: toHsl(easedLightness(), chromaRatio(), (360 * index) / (SLIDER_SIZE_PX - 1)),
