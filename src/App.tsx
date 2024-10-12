@@ -54,11 +54,11 @@ export function App() {
           <legend>Color Input</legend>
 
           <div class={classes.inputGrid}>
-            <div style={{ display: 'flex', 'align-items': 'center' }}>
+            <div style={{ display: 'flex', gap: '0.2em', 'align-items': 'center' }}>
               Lightness
               <Icon
                 src={helpCircleIcon}
-                size="1.5em"
+                size="0.75lh"
                 color="oklch(60% 0 0)"
                 title={
                   'Instead of the original lightness value in Oklch, it represents a corrected value that is closer to the lightness in HSL.\nSpecifically, by raising this value to the power of 0.74, you will get the lightness value in Oklch.'
@@ -80,11 +80,11 @@ export function App() {
             </div>
             <NumberInput value={lightness()} onChange={setLightness} />
 
-            <div style={{ display: 'flex', 'align-items': 'center' }}>
+            <div style={{ display: 'flex', gap: '0.2em', 'align-items': 'center' }}>
               Chroma
               <Icon
                 src={helpCircleIcon}
-                size="1.5em"
+                size="0.75lh"
                 color="oklch(60% 0 0)"
                 title={
                   'Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within the sRGB color gamut.\nThe maximum chroma is determined by lightness and hue.'
