@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignore": ["dist", "package.json"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 140
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "quoteStyle": "single"
+    }
+  },
+  "linter": {
+    "rules": {
+      "correctness": { "noUnusedImports": "error" },
+      "complexity": { "noBannedTypes": "off" }
+    }
+  }
+}

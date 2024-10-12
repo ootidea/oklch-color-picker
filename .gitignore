@@ -1,6 +1,14 @@
+# OS
 .DS_Store
+Thumbs.db
 
+# IDE
+.idea
+.vscode
+
+# npm
 node_modules
 dist
 
-.idea
+# tsc
+tsconfig.tsbuildinfo
