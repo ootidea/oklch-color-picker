@@ -78,7 +78,7 @@ export function App() {
                 ▲
               </div>
             </div>
-            <NumberInput value={lightness()} onChange={(value) => value !== undefined && setLightness(value)} />
+            <NumberInput value={lightness()} onChange={setLightness} />
 
             <div style={{ display: 'flex', 'align-items': 'center' }}>
               Chroma
@@ -104,7 +104,7 @@ export function App() {
                 ▲
               </div>
             </div>
-            <NumberInput value={chromaRatio()} onChange={(value) => value !== undefined && setChromaRatio(value)} />
+            <NumberInput value={chromaRatio()} onChange={setChromaRatio} />
 
             <div>Hue</div>
             <div>
@@ -124,7 +124,7 @@ export function App() {
                 ▲
               </div>
             </div>
-            <NumberInput value={hue()} onChange={(value) => value !== undefined && setHue(value)} />
+            <NumberInput value={hue()} onChange={setHue} />
           </div>
         </fieldset>
 
