@@ -12,7 +12,7 @@ import starOutlineIcon from './image/star-outline.svg'
 import starIcon from './image/star.svg'
 import thumbUpOutlineIcon from './image/thumb-up-outline.svg'
 import thumbUpIcon from './image/thumb-up.svg'
-import { chromaRatio, hue, lightness, setChromaRatio, setHue, setLightness } from './signal'
+import { MAX_NUMBER_INPUT_LENGTH, chromaRatio, hue, lightness, setChromaRatio, setHue, setLightness } from './signal'
 
 const easedLightness = createMemo(() => ease(lightness()))
 const color = createMemo(() => createColorByChromaRatio(easedLightness(), chromaRatio(), hue()))
@@ -20,7 +20,7 @@ const color = createMemo(() => createColorByChromaRatio(easedLightness(), chroma
 export function App() {
   const SLIDER_SIZE_PX = 360
 
-  const onMouseDown =
+  const onMouseDownOf =
     (setter: (value: number) => void, maxValue = 1) =>
     (event: MouseEvent) => {
       event.preventDefault()
@@ -70,7 +70,7 @@ export function App() {
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
                 <Triangle direction="down" />
               </div>
-              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
+              <div class={classes.sliderTrack} onMouseDown={onMouseDownOf(setLightness)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div style={{ background: toHsl(ease(index / (SLIDER_SIZE_PX - 1)), chromaRatio(), hue()) }} />
                 ))}
@@ -79,7 +79,7 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput nonNegative value={lightness()} maxLength={6} onChange={setLightness} />
+            <NumberInput nonNegative value={lightness()} maxLength={MAX_NUMBER_INPUT_LENGTH} onChange={setLightness} />
 
             <div style={{ display: 'flex', gap: '0.2em', 'align-items': 'center' }}>
               Chroma
@@ -96,7 +96,7 @@ export function App() {
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
                 <Triangle direction="down" />
               </div>
-              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
+              <div class={classes.sliderTrack} onMouseDown={onMouseDownOf(setChromaRatio)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div style={{ background: toHsl(easedLightness(), index / (SLIDER_SIZE_PX - 1), hue()) }} />
                 ))}
@@ -105,14 +105,14 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput nonNegative value={chromaRatio()} maxLength={6} onChange={setChromaRatio} />
+            <NumberInput nonNegative value={chromaRatio()} maxLength={MAX_NUMBER_INPUT_LENGTH} onChange={setChromaRatio} />
 
             <div>Hue</div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
                 <Triangle direction="down" />
               </div>
-              <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)}>
+              <div class={classes.sliderTrack} onMouseDown={onMouseDownOf(setHue, 360)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
                   <div
                     style={{
@@ -125,7 +125,7 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput nonNegative integer value={hue()} maxLength={6} onChange={setHue} />
+            <NumberInput nonNegative integer value={hue()} maxLength={MAX_NUMBER_INPUT_LENGTH} onChange={setHue} />
           </div>
         </fieldset>
 
