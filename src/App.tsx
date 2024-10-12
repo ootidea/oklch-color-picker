@@ -79,7 +79,7 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput value={lightness()} onChange={setLightness} />
+            <NumberInput nonNegative value={lightness()} maxLength={6} onChange={setLightness} />
 
             <div style={{ display: 'flex', gap: '0.2em', 'align-items': 'center' }}>
               Chroma
@@ -105,7 +105,7 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput value={chromaRatio()} onChange={setChromaRatio} />
+            <NumberInput nonNegative value={chromaRatio()} maxLength={6} onChange={setChromaRatio} />
 
             <div>Hue</div>
             <div>
@@ -125,7 +125,7 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput value={hue()} onChange={setHue} />
+            <NumberInput nonNegative integer value={hue()} maxLength={6} onChange={setHue} />
           </div>
         </fieldset>
 
