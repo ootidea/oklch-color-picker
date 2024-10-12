@@ -15,8 +15,9 @@
   },
   "linter": {
     "rules": {
-      "correctness": { "noUnusedImports": "error" },
-      "complexity": { "noBannedTypes": "off" }
+      "correctness": { "noUnusedImports": "error", "useJsxKeyInIterable": "off" },
+      "complexity": { "noBannedTypes": "off" },
+      "suspicious": { "noAssignInExpressions": "off" }
     }
   }
 }

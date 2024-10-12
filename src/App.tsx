@@ -2,8 +2,8 @@ import { isInstanceOf, rangeUntil } from 'base-up'
 import { Gravity, Icon, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
 import { createMemo } from 'solid-js'
 import classes from './App.module.scss'
-import { createColorByChromaRatio, ease, toHsl } from './color'
 import { CssColorOutput } from './CssColorOutput'
+import { createColorByChromaRatio, ease, toHsl } from './color'
 import heartOutlineIcon from './image/heart-outline.svg'
 import heartIcon from './image/heart.svg'
 import helpCircleIcon from './image/help-circle-outline.svg'
@@ -20,7 +20,7 @@ export function App() {
   const SLIDER_SIZE_PX = 360
 
   const onMouseDown =
-    (setter: (value: number) => void, maxValue: number = 1) =>
+    (setter: (value: number) => void, maxValue = 1) =>
     (event: MouseEvent) => {
       event.preventDefault()
 
@@ -102,8 +102,8 @@ export function App() {
                 )}
               >
                 <p style={{ margin: '1em', 'font-size': '0.9em' }}>
-                  Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within
-                  the sRGB color gamut. The maximum chroma is determined by lightness and hue.
+                  Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within the sRGB color gamut.
+                  The maximum chroma is determined by lightness and hue.
                 </p>
               </Popover>
             </div>
@@ -146,13 +146,7 @@ export function App() {
                 <Triangle />
               </div>
             </div>
-            <NumberInput
-              value={hue()}
-              min={0}
-              max={360}
-              required
-              onChangeValue={(value) => value !== undefined && setHue(value)}
-            />
+            <NumberInput value={hue()} min={0} max={360} required onChangeValue={(value) => value !== undefined && setHue(value)} />
           </div>
         </fieldset>
 

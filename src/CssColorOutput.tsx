@@ -36,12 +36,7 @@ export function CssColorOutput(props: { color: string }) {
                 closeModal()
               }}
             >
-              <TextInput
-                value={colorString()}
-                error={isInvalidColorString}
-                style={{ 'min-width': '20em' }}
-                onValid={setColorString}
-              />
+              <TextInput value={colorString()} error={isInvalidColorString} style={{ 'min-width': '20em' }} onValid={setColorString} />
               <Gravity to="right" style={{ padding: '0.5em 1em' }}>
                 <Button type="submit">OK</Button>
               </Gravity>
