@@ -3,6 +3,7 @@ import { isInstanceOf, sequentialNumbersUntil } from 'base-up'
 import { createMemo } from 'solid-js'
 import classes from './App.module.scss'
 import { CssColorOutput } from './CssColorOutput'
+import { Triangle } from './Triangle'
 import { createColorByChromaRatio, ease, toHsl } from './color'
 import heartOutlineIcon from './image/heart-outline.svg'
 import heartIcon from './image/heart.svg'
@@ -67,7 +68,7 @@ export function App() {
             </div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
-                ▼
+                <Triangle direction="down" />
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
@@ -75,7 +76,7 @@ export function App() {
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
-                ▲
+                <Triangle />
               </div>
             </div>
             <NumberInput value={lightness()} onChange={setLightness} />
@@ -93,7 +94,7 @@ export function App() {
             </div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
-                ▼
+                <Triangle direction="down" />
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
@@ -101,7 +102,7 @@ export function App() {
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
-                ▲
+                <Triangle />
               </div>
             </div>
             <NumberInput value={chromaRatio()} onChange={setChromaRatio} />
@@ -109,7 +110,7 @@ export function App() {
             <div>Hue</div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
-                ▼
+                <Triangle direction="down" />
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
@@ -121,7 +122,7 @@ export function App() {
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
-                ▲
+                <Triangle />
               </div>
             </div>
             <NumberInput value={hue()} onChange={setHue} />
