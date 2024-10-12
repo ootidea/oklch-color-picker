@@ -1,5 +1,5 @@
+import { Button, Icon, IconButton, Modal, TextInput } from '@ootidea/solidjs-modular-components'
 import Color from 'colorjs.io'
-import { Button, Gravity, IconButton, Modal, TextInput } from 'solid-design-parts'
 import { batch, createSignal } from 'solid-js'
 import { calculateMaxChromaInGamut, isInvalidColorString, unease } from './color'
 import editIcon from './image/edit-outline.svg'
@@ -10,11 +10,15 @@ export function CssColorOutput(props: { color: string }) {
     <div style={{ display: 'flex', 'justify-content': 'space-between' }}>
       <div>{props.color}</div>
       <Modal
-        launcher={({ openModal }) => <IconButton src={editIcon} color="oklch(50% 0 0)" onClick={openModal} />}
+        trigger={(openModal) => (
+          <IconButton onClick={openModal}>
+            <Icon src={editIcon} color="oklch(50% 0 0)" />
+          </IconButton>
+        )}
         title="Edit CSS color"
         showCloseButton
       >
-        {({ closeModal }) => {
+        {(closeModal) => {
           const [colorString, setColorString] = createSignal(props.color)
           return (
             <form
@@ -36,10 +40,15 @@ export function CssColorOutput(props: { color: string }) {
                 closeModal()
               }}
             >
-              <TextInput value={colorString()} error={isInvalidColorString} style={{ 'min-width': '20em' }} onValid={setColorString} />
-              <Gravity to="right" style={{ padding: '0.5em 1em' }}>
+              <TextInput
+                value={colorString()}
+                aria-invalid={isInvalidColorString(colorString())}
+                style={{ 'min-width': '20em' }}
+                onChange={setColorString}
+              />
+              <div style={{ display: 'flex', 'justify-content': 'end', padding: '0.5em 1em' }}>
                 <Button type="submit">OK</Button>
-              </Gravity>
+              </div>
             </form>
           )
         }}

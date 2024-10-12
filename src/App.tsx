@@ -1,5 +1,5 @@
+import { Icon, NumberInput } from '@ootidea/solidjs-modular-components'
 import { isInstanceOf, sequentialNumbersUntil } from 'base-up'
-import { Gravity, Icon, IconButton, NumberInput, Popover, Triangle } from 'solid-design-parts'
 import { createMemo } from 'solid-js'
 import classes from './App.module.scss'
 import { CssColorOutput } from './CssColorOutput'
@@ -56,17 +56,18 @@ export function App() {
           <div class={classes.inputGrid}>
             <div style={{ display: 'flex', 'align-items': 'center' }}>
               Lightness
-              <Gravity
+              <Icon
+                src={helpCircleIcon}
+                size="1.5em"
+                color="oklch(60% 0 0)"
                 title={
                   'Instead of the original lightness value in Oklch, it represents a corrected value that is closer to the lightness in HSL.\nSpecifically, by raising this value to the power of 0.74, you will get the lightness value in Oklch.'
                 }
-              >
-                <IconButton src={helpCircleIcon} size="1.5em" iconColor="oklch(60% 0 0)" />
-              </Gravity>
+              />
             </div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
-                <Triangle direction="down" />
+                ▼
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setLightness)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
@@ -74,35 +75,25 @@ export function App() {
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${lightness() * 100}%` }}>
-                <Triangle />
+                ▲
               </div>
             </div>
-            <NumberInput
-              value={lightness()}
-              min={0}
-              max={1}
-              required
-              onChangeValue={(value) => value !== undefined && setLightness(value)}
-            />
+            <NumberInput value={lightness()} onChange={(value) => value !== undefined && setLightness(value)} />
 
             <div style={{ display: 'flex', 'align-items': 'center' }}>
               Chroma
-              <Popover
-                launcher={({ openPopover }) => (
-                  <Gravity>
-                    <IconButton src={helpCircleIcon} size="1.5em" iconColor="oklch(60% 0 0)" onClick={openPopover} />
-                  </Gravity>
-                )}
-              >
-                <p style={{ margin: '1em', 'font-size': '0.9em' }}>
-                  Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within the sRGB color gamut.
-                  The maximum chroma is determined by lightness and hue.
-                </p>
-              </Popover>
+              <Icon
+                src={helpCircleIcon}
+                size="1.5em"
+                color="oklch(60% 0 0)"
+                title={
+                  'Instead of the original chroma value in Oklch, it represents the ratio of the maximum chroma within the sRGB color gamut.\nThe maximum chroma is determined by lightness and hue.'
+                }
+              />
             </div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
-                <Triangle direction="down" />
+                ▼
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setChromaRatio)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
@@ -110,21 +101,15 @@ export function App() {
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${chromaRatio() * 100}%` }}>
-                <Triangle />
+                ▲
               </div>
             </div>
-            <NumberInput
-              value={chromaRatio()}
-              min={0}
-              max={1}
-              required
-              onChangeValue={(value) => value !== undefined && setChromaRatio(value)}
-            />
+            <NumberInput value={chromaRatio()} onChange={(value) => value !== undefined && setChromaRatio(value)} />
 
             <div>Hue</div>
             <div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
-                <Triangle direction="down" />
+                ▼
               </div>
               <div class={classes.sliderTrack} onMouseDown={onMouseDown(setHue, 360)}>
                 {sequentialNumbersUntil(SLIDER_SIZE_PX as number).map((index) => (
@@ -136,10 +121,10 @@ export function App() {
                 ))}
               </div>
               <div class={classes.sliderMarkerCage} style={{ 'margin-left': `${(hue() / 360) * 100}%` }}>
-                <Triangle />
+                ▲
               </div>
             </div>
-            <NumberInput value={hue()} min={0} max={360} required onChangeValue={(value) => value !== undefined && setHue(value)} />
+            <NumberInput value={hue()} onChange={(value) => value !== undefined && setHue(value)} />
           </div>
         </fieldset>
 
