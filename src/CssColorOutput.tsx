@@ -7,8 +7,10 @@ import { setChromaRatio, setHue, setLightness } from './signal'
 
 export function CssColorOutput(props: { color: string }) {
   return (
-    <div style={{ display: 'flex', 'justify-content': 'space-between' }}>
-      <div>{props.color}</div>
+    <div style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'space-between' }}>
+      <output>
+        <code>{props.color}</code>
+      </output>
       <Modal
         trigger={(openModal) => (
           <IconButton onClick={openModal}>

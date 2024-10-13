@@ -164,7 +164,7 @@ export function App() {
         <fieldset>
           <legend>CSS Colors</legend>
 
-          <div style={{ display: 'grid', gap: '0.4em' }}>
+          <div style={{ display: 'grid', gap: '0.2lh' }}>
             <CssColorOutput color={color().to('srgb').toString({ format: 'hex' })} />
             <CssColorOutput color={color().to('srgb').toString()} />
             <CssColorOutput color={color().to('hsl').toString()} />
