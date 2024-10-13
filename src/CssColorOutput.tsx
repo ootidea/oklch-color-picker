@@ -14,7 +14,7 @@ export function CssColorOutput(props: { color: string }) {
       <Modal
         trigger={(openModal) => (
           <IconButton onClick={openModal}>
-            <Icon src={editIcon} color="oklch(50% 0 0)" />
+            <Icon src={editIcon} color="oklch(55% 0 0)" size="0.85lh" />
           </IconButton>
         )}
         title="Edit CSS color"
@@ -48,7 +48,7 @@ export function CssColorOutput(props: { color: string }) {
                 style={{ 'min-width': '20em' }}
                 onChange={setColorString}
               />
-              <div style={{ display: 'flex', 'justify-content': 'end', padding: '0.5em 1em' }}>
+              <div style={{ display: 'flex', 'justify-content': 'end', 'margin-top': '0.5lh' }}>
                 <Button type="submit">OK</Button>
               </div>
             </form>
