@@ -42,8 +42,8 @@ legend {
 }
 
 .sliderMarkerCage {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  aspect-ratio: 1;
   color: oklch(65% 0 0);
 
   transform: translateX(-50%);
